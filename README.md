@@ -15,7 +15,7 @@ This system allows users to:
 # Base URL
 
 ```
-http://127.0.0.1:8000/api/
+http://127.0.0.1:8000/
 ```
 
 ---
@@ -166,7 +166,7 @@ Authorization: Bearer ACCESS_TOKEN
 ```json
 {
  "user": "sailendra",
- "age": 22,
+ "age": 21,
  "height": 175,
  "weight": 70,
  "gender": "male",
