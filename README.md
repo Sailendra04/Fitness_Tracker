@@ -1,38 +1,56 @@
-Fitness Health Tracker API
+# Fitness Health Tracker API
 
-Backend API for a Fitness Health Tracker application.
+Backend API for a **Fitness Health Tracker application**.
+
 This system allows users to:
 
-Register and login securely using JWT authentication
+- Register and login securely using JWT authentication
+- Manage personal fitness profile
+- Track daily workouts
+- Log diet and nutrition intake
+- View calorie and macronutrient summaries
 
-Manage personal fitness profile
+---
 
-Track daily workouts
+# Base URL
 
-Log diet and nutrition intake
-
-View calorie and macronutrient summaries
-
-Base URL
+```
 http://127.0.0.1:8000/api/
-Authentication
+```
 
-Authentication is done using JWT tokens.
+---
+
+# Authentication
+
+Authentication is done using **JWT tokens**.
 
 After login, include this header in protected requests:
 
+```
 Authorization: Bearer <access_token>
-1. Register User
-Endpoint
+```
+
+---
+
+# 1. Register User
+
+## Endpoint
+```
 POST /Users/register/
-Input
+```
+
+## Input
+```json
 {
  "username": "sailendra",
  "email": "sailendra@gmail.com",
  "password": "StrongPass123",
  "confirm_password": "StrongPass123"
 }
-Response
+```
+
+## Response
+```json
 {
  "message": "User registered successfully",
  "user": {
@@ -41,40 +59,78 @@ Response
   "email": "sailendra@gmail.com"
  }
 }
-2. Login User
-Endpoint
+```
+
+---
+
+# 2. Login User
+
+## Endpoint
+```
 POST /Users/login/
-Input
+```
+
+## Input
+```json
 {
  "username": "sailendra",
  "password": "StrongPass123"
 }
-Response
+```
+
+## Response
+```json
 {
  "refresh": "REFRESH_TOKEN",
  "access": "ACCESS_TOKEN"
 }
-3. Refresh Access Token
-Endpoint
+```
+
+---
+
+# 3. Refresh Access Token
+
+## Endpoint
+```
 POST /token/refresh/
-Input
+```
+
+## Input
+```json
 {
  "refresh": "REFRESH_TOKEN"
 }
-Response
+```
+
+## Response
+```json
 {
  "access": "NEW_ACCESS_TOKEN"
 }
-Profile Module
+```
+
+---
+
+# Profile Module
 
 Stores user fitness details.
 
-4. Create / Update Profile
-Endpoint
+---
+
+# 4. Create / Update Profile
+
+## Endpoint
+```
 POST /Users/profile/
-Headers
+```
+
+## Headers
+```
 Authorization: Bearer ACCESS_TOKEN
-Input
+```
+
+## Input
+```json
 {
  "age": 21,
  "height": 175,
@@ -83,16 +139,31 @@ Input
  "daily_calorie_goal": 2200,
  "goal":"gain"
 }
-Response
+```
+
+## Response
+```json
 {
  "message": "Profile saved successfully"
 }
-6. View Profile
-Endpoint
+```
+
+---
+
+# 5. View Profile
+
+## Endpoint
+```
 GET /Users/profile/
-Headers
+```
+
+## Headers
+```
 Authorization: Bearer ACCESS_TOKEN
-Response
+```
+
+## Response
+```json
 {
  "user": "sailendra",
  "age": 22,
@@ -101,14 +172,25 @@ Response
  "gender": "male",
  "daily_calorie_goal": 2200
 }
-Workout Module
+```
+
+---
+
+# Workout Module
 
 Tracks workouts assigned to users.
 
-6. List All Workouts
-Endpoint
+---
+
+# 6. List All Workouts
+
+## Endpoint
+```
 GET /workouts/templates/
-Response
+```
+
+## Response
+```json
 [
  {
   "id": 1,
@@ -118,27 +200,54 @@ Response
   "average_calories_burn": 80
  }
 ]
-7. Assign Workout to User
-Endpoint
+```
+
+---
+
+# 7. Assign Workout to User
+
+## Endpoint
+```
 POST /Workouts/assign/
-Headers
+```
+
+## Headers
+```
 Authorization: Bearer ACCESS_TOKEN
-Input
+```
+
+## Input
+```json
 {
  "workout": 1,
- "actual_duration":30
+ "actual_duration": 30
 }
-Response
+```
+
+## Response
+```json
 {
  "message": "Workout assigned",
  "status": "pending"
 }
-9. Get Today's Workouts
-Endpoint
+```
+
+---
+
+# 8. Get Today's Workouts
+
+## Endpoint
+```
 GET /Workouts/today/
-Headers
+```
+
+## Headers
+```
 Authorization: Bearer ACCESS_TOKEN
-Response
+```
+
+## Response
+```json
 [
  {
   "workout": "Push Ups",
@@ -146,27 +255,53 @@ Response
   "date_assigned": "2026-03-10"
  }
 ]
-10. Complete Workout
-Endpoint
+```
+
+---
+
+# 9. Complete Workout
+
+## Endpoint
+```
 PATCH /Workouts/complete/{id}/
-Headers
+```
+
+## Headers
+```
 Authorization: Bearer ACCESS_TOKEN
-Input
+```
+
+## Input
+```json
 {
  "status": "completed"
 }
-Response
+```
+
+## Response
+```json
 {
  "status": "completed"
 }
-Diet Module
+```
+
+---
+
+# Diet Module
 
 Tracks nutrition intake.
 
-10. Get All Food Items
-Endpoint
+---
+
+# 10. Get All Food Items
+
+## Endpoint
+```
 GET /Diet/foods/
-Response
+```
+
+## Response
+```json
 [
  {
   "id": 1,
@@ -177,18 +312,33 @@ Response
   "fat_per_100g": 0
  }
 ]
-11. Log Food Intake
-Endpoint
+```
+
+---
+
+# 11. Log Food Intake
+
+## Endpoint
+```
 POST /Diet/log/
-Headers
+```
+
+## Headers
+```
 Authorization: Bearer ACCESS_TOKEN
-Input
+```
+
+## Input
+```json
 {
  "food": 1,
  "quantity_grams": 200,
  "meal_type": "lunch"
 }
-Response
+```
+
+## Response
+```json
 {
  "food": "Rice",
  "quantity_grams": 200,
@@ -197,12 +347,24 @@ Response
  "carbs": 56,
  "fat": 0
 }
-12. Get Today's Diet
-Endpoint
+```
+
+---
+
+# 12. Get Today's Diet
+
+## Endpoint
+```
 GET /Diet/today/
-Headers
+```
+
+## Headers
+```
 Authorization: Bearer ACCESS_TOKEN
-Response
+```
+
+## Response
+```json
 [
  {
   "food": "Egg",
@@ -211,38 +373,48 @@ Response
   "calories": 155
  }
 ]
-13. Diet Summary
-Endpoint
+```
+
+---
+
+# 13. Diet Summary
+
+## Endpoint
+```
 GET /Diet/summary/
-Headers
+```
+
+## Headers
+```
 Authorization: Bearer ACCESS_TOKEN
-Response
+```
+
+## Response
+```json
 {
  "calories_consumed": 1200,
  "protein_consumed": 60,
  "carbs_consumed": 150,
  "fat_consumed": 30
 }
-Technologies Used
+```
 
-Python
+---
 
-Django
+# Technologies Used
 
-Django REST Framework
+- Python
+- Django
+- Django REST Framework
+- JWT Authentication (Simple JWT)
+- SQLite / MySQL
 
-JWT Authentication using Simple JWT
+---
 
-SQLite / MySQL
+# Features
 
-Features
-
-Secure JWT authentication
-
-Workout tracking
-
-Diet logging
-
-Nutrition calculation
-
-User fitness profile management
+- Secure JWT authentication
+- Workout tracking
+- Diet logging
+- Nutrition calculation
+- User fitness profile management
